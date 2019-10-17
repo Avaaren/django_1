@@ -9,16 +9,17 @@
 <body>
 <h1>Объявления</h1>
 <div>
-	<a href="/bboard/">Главная</a>
+	<a href="{% url 'index' %}">Главная</a><!-- Тут без параметров, поэтому только имя -->
+	<a href="{% url 'add' %}">Добавить</a>
 	{% for rubric in rubrics %}
-	<a href="/bboard/{{ rubric.pk }}/">{{ rubric.name }}</a>
+	<a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a> <!-- Имя маршрута - первым параметром, параметры передаваемые в маршрут - вторым. -->
 	{% endfor %}
 </div>
 {% for bb in bbs %}
 <div>
 	<h2>{{ bb.title }}</h2>
 	<p>{{ bb.content }}</p>
-	<p><a href="/bboard/{{ bb.rubric.pk }}/">{{ bb.rubric.name }}</a></p>
+	<p><a href="{% url 'index' %}/{% url 'by_rubric' bb.rubric.pk %}">{{ bb.rubric.name }}</a></p>
 	<p>{{ bb.published|date:"d.m.Y H:i:s" }}</p>
 </div>
 {% endfor %}

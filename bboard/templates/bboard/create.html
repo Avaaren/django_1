@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" 
+	content="text/html"; charset="utf-8">
+	<title>Добавление объявления - Доска объявлений</title>
+</head>
+<body>
+<h1>Добавление объявления</h1>
+
+<div>
+	<a href="{% url 'index' %}">Главная</a>
+	{% for rubric in rubrics %}
+	<a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
+	{% endfor %}
+</div>
+<form method = "post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value = "Добавить">
+</form>	
+<!-- форма в контексте шаблона хранится в переменной form создаваемой базовым классом createview
+as_p() - метод ModelForm чтобы выводить форму с элементами управления на отдельных абзацах.
+в POST мы не указали адрес куда будет отправлено, поэтому отправляет на тот адрес откуда была загружена страница
+csrf_token - часть безопасности джанго - цифровая метка -->
+</body>
+</html>
